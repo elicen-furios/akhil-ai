@@ -161,3 +161,111 @@ button {
     width: 100%;
   }
 }
+.chatPage {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(90, 80, 255, 0.12), transparent 35%),
+    #030305;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatHeader {
+  height: 70px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(5, 5, 8, 0.7);
+  backdrop-filter: blur(20px);
+}
+
+.chatHeader div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.chatHeader strong {
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.chatHeader span {
+  color: #67ff9a;
+  font-size: 11px;
+}
+
+.chatArea {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.welcome {
+  text-align: center;
+  max-width: 600px;
+}
+
+.coreIcon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 25px;
+}
+
+.welcome h1 {
+  margin: 0;
+  font-size: clamp(28px, 6vw, 48px);
+  letter-spacing: -1px;
+}
+
+.welcome p {
+  color: #888894;
+  line-height: 1.6;
+}
+
+.composer {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto 24px;
+  padding: 8px;
+  display: flex;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(20px);
+}
+
+.composer input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  padding: 14px;
+  background: transparent;
+  color: white;
+  font-size: 15px;
+}
+
+.composer input::placeholder {
+  color: #686873;
+}
+
+.composer button {
+  width: 45px;
+  height: 45px;
+  border: 0;
+  border-radius: 13px;
+  background: white;
+  color: black;
+  font-size: 20px;
+  cursor: pointer;
+  }

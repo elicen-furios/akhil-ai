@@ -22,7 +22,9 @@ export default function Home() {
         </p>
 
         <div className="actions">
-          <button className="primary">Start Chatting</button>
+          <a href="/chat" className="primary">
+  Start Chatting
+</a>
           <button className="secondary">Explore Core</button>
         </div>
 

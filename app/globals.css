@@ -10,7 +10,154 @@ body {
 }
 
 body {
-  background: #050505;
-  color: white;
-  font-family: Arial, sans-serif;
+  background: #030305;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+.home {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(80, 80, 255, 0.13), transparent 32%),
+    #030305;
+}
+
+.hero {
+  position: relative;
+  z-index: 2;
+  width: min(850px, 100%);
+  text-align: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(18px);
+  color: #c9c9d4;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.dot,
+.statusDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #67ff9a;
+  box-shadow: 0 0 14px #67ff9a;
+}
+
+.hero h1 {
+  margin: 28px 0 20px;
+  font-size: clamp(52px, 10vw, 105px);
+  line-height: 0.95;
+  letter-spacing: -5px;
+}
+
+.hero h1 span {
+  background: linear-gradient(90deg, #fff, #8d8dff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: 0 auto;
+  color: #9999a8;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 34px;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  border: 0;
+  border-radius: 14px;
+  padding: 14px 22px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.primary {
+  background: #fff;
+  color: #050507;
+}
+
+.secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.actions button:hover {
+  transform: translateY(-2px);
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 32px;
+  color: #777784;
+  font-size: 13px;
+}
+
+.glow {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.12;
+}
+
+.glowOne {
+  background: #514cff;
+  top: -100px;
+  left: -100px;
+}
+
+.glowTwo {
+  background: #00e5ff;
+  right: -100px;
+  bottom: -100px;
+}
+
+@media (max-width: 600px) {
+  .hero h1 {
+    letter-spacing: -3px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions button {
+    width: 100%;
+  }
 }

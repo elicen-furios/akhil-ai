@@ -17,18 +17,29 @@ export async function POST(request: Request) {
     }
 
     const apiKeys = Object.keys(process.env)
-      .filter((key) => /^NVIDIA_API_KEY_\d+$/.test(key))
-      .sort(
-        (a, b) =>
-          Number(a.split("_").pop()) -
-          Number(b.split("_").pop())
+      .filter(
+        (key) =>
+          key === "NVIDIA_API_KEY" ||
+          /^NVIDIA_API_KEY_\d+$/.test(key)
       )
+      .sort((a, b) => {
+        if (a === "NVIDIA_API_KEY") return -1;
+        if (b === "NVIDIA_API_KEY") return 1;
+
+        return (
+          Number(b.split("_").pop()) -
+          Number(a.split("_").pop())
+        );
+      })
       .map((key) => process.env[key])
       .filter(Boolean) as string[];
 
     if (apiKeys.length === 0) {
       return NextResponse.json(
-        { error: "No NVIDIA API keys are configured." },
+        {
+          error:
+            "NVIDIA API key is not configured on the server.",
+        },
         { status: 500 }
       );
     }
@@ -39,23 +50,27 @@ export async function POST(request: Request) {
       try {
         const response = await fetch(NVIDIA_URL, {
           method: "POST",
+
           headers: {
             Authorization: `Bearer ${apiKey}`,
             "Content-Type": "application/json",
           },
+
           body: JSON.stringify({
             model: MODEL,
+
             messages: [
               {
                 role: "system",
                 content:
-                  "You are AKHIL NEURAL CORE X, a helpful personal AI assistant. Be clear, capable, and concise.",
+                  "You are AKHIL NEURAL CORE X, a powerful personal AI assistant. Answer naturally and accurately. Help with coding, learning, writing, reasoning, technology, creativity, and everyday questions. Do not use scripted answers. Match the user's language and keep answers clear unless more detail is requested.",
               },
               {
                 role: "user",
                 content: message,
               },
             ],
+
             temperature: 0.7,
             max_tokens: 1200,
           }),
@@ -66,23 +81,34 @@ export async function POST(request: Request) {
         if (response.ok) {
           const reply =
             data?.choices?.[0]?.message?.content ||
-            data?.choices?.[0]?.message?.reasoning_content ||
-            "I couldn't generate a response.";
+            data?.choices?.[0]?.message?.reasoning_content;
+
+          if (!reply) {
+            return NextResponse.json(
+              {
+                error:
+                  "The AI provider returned an empty response.",
+              },
+              { status: 502 }
+            );
+          }
 
           return NextResponse.json({ reply });
         }
 
         lastError =
-          data?.error?.message || "AI request failed.";
+          data?.error?.message ||
+          "NVIDIA AI request failed.";
 
-        // Try the next key for authentication, rate-limit,
-        // server, or temporary provider failures.
-        if (![401, 403, 429].includes(response.status) &&
-            response.status < 500) {
+        if (
+          ![401, 403, 429].includes(response.status) &&
+          response.status < 500
+        ) {
           break;
         }
       } catch {
-        lastError = "Network error while contacting NVIDIA.";
+        lastError =
+          "Network error while contacting NVIDIA.";
       }
     }
 
